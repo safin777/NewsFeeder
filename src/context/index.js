@@ -1,6 +1,7 @@
-import { createContext } from "react";
+import { createContext } from 'react'
 
-const NewsContext = createContext("");
+const ThemeContext = createContext(null)
+const NewsContext = createContext(null)
+const SearchContext = createContext(null)
 
-
-export { NewsContext };
+export { ThemeContext,NewsContext,SearchContext }
