@@ -32,6 +32,7 @@ export default function Navbar({ children }) {
           </button>
         </div>
       </div>
+      {children}
     </nav>
   )
 }

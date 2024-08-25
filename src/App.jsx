@@ -1,15 +1,17 @@
-//import css
-import './App.css'
-import './index.css'
-import Page from './Page'
-import ThemeProvider from './provider/ThemeProvider'
+import Page from './Page.jsx'
+import NewsProvider from './provider/NewsProvider.jsx'
+import SearchProvider from './provider/SearchProvider.jsx'
+import ThemeProvider from './provider/ThemeProvider.jsx'
 
-function App() {
+const App = () => {
   return (
     <ThemeProvider>
-      <Page />
+      <SearchProvider>
+        <NewsProvider>
+          <Page />
+        </NewsProvider>
+      </SearchProvider>
     </ThemeProvider>
   )
 }
-
 export default App

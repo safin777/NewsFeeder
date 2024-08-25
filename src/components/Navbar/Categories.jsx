@@ -1,18 +1,56 @@
 import { useContext } from 'react'
 import { CATEGORIES } from '../../constants/constant.js'
+import { NewsContext, SearchContext } from '../../context/index.js'
 import { ThemeContext } from '../../context/index.js'
 
-
 const Categories = () => {
-    const { isDark } = useContext(ThemeContext)
+  const { isDark } = useContext(ThemeContext)
+  const { category, setCategory, newsData, error } = useContext(NewsContext)
+  const { setSearchValue } = useContext(SearchContext)
+
+  const handleCategory = (category) => {
+    setSearchValue('')
+    setCategory(category)
+  }
+
+  // dynamically setting the color of categories
+  const setListClass = (cat) => {
+    const categoryMatched = category.toLowerCase() === cat.toLowerCase()
+    if ((isDark && categoryMatched) || (!isDark && categoryMatched)) {
+      return 'text-green-500'
+    } else if (isDark && !categoryMatched) {
+      return 'text-white'
+    } else {
+      return 'text-black'
+    }
+  }
 
   return (
-    <div>
-      <h2>List of categories</h2>
+    <div className="container mx-auto mt-6">
+      {error ? (
+        <p>No categories available...</p>
+      ) : (
+        <ul className="flex flex-wrap items-center justify-center gap-5 text-xs font-semibold lg:text-base">
+          {CATEGORIES.map((cat) => (
+            <li
+              onClick={() => handleCategory(cat)}
+              className={setListClass(cat)}
+              key={cat}
+            >
+              <a href={`#${cat}`}>{cat}</a>
+            </li>
+          ))}
+          {/* TOTAL RESULTS */}
+          <div className="mt-2">
+            <span className="p-2 text-white bg-red-400 rounded-l-md">
+              {newsData.data.totalResults}
+            </span>
+            <span className="p-2 text-white bg-black rounded-r-md">NEWS</span>
+          </div>
+        </ul>
+      )}
     </div>
   )
 }
 
 export default Categories
-
-
